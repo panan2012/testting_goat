@@ -1,10 +1,14 @@
-from selenium import webdriver
 import unittest
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+
 
 class NewVisitorTest(unittest.TestCase):  
 
     def setUp(self):  
-        self.browser = webdriver.Firefox()
+        options = Options()
+        options.binary_location = 'C:/Program Files/Mozilla Firefox/firefox.exe'
+        self.browser = webdriver.Firefox(options=options)
 
     def tearDown(self):  
         self.browser.quit()
@@ -15,8 +19,10 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.get('http://localhost:8000')
 
         # She notices the page title and header mention to-do lists
-        self.assertIn('To-Do', self.browser.title)  
-        self.fail('Finish the test!')  
+        self.assertIn("To-Do", self.browser.title)
+        
+        # She is invited to enter a to-do item straight away
+        self.fail("Finish the test!")  
 
         # She is invited to enter a to-do item straight away
         # She types "Buy peacock feathers" into a text box (Edith's hobby
