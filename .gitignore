@@ -33,4 +33,4 @@ $RECYCLE.BIN/
 
 geckodriver.log
 .venv
-.gitignore
+.gitignore/static
