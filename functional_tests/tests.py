@@ -6,6 +6,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import WebDriverException
 import time
 import unittest
+import os
 
 
 
@@ -16,6 +17,9 @@ class NewVisitorTest(StaticLiveServerTestCase):
         options = Options()
         options.binary_location = 'C:/Program Files/Mozilla Firefox/firefox.exe'
         self.browser = webdriver.Firefox(options=options)
+        staging_server = os.environ.get('STAGING_SERVER')
+        if staging_server:
+            self.live_server_url = 'http://' + staging_server
         # self.browser = webdriver.Firefox()
 
 
@@ -66,7 +70,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
          start_time = time.time()
          while True:
               try:
-                   table = self.browser.find_element(By.ID, "id_nothing")
+                   table = self.browser.find_element(By.ID, id="id_nothing")
                    rows = table.find_elements(By.TAG_NAME, "tr")
                    self.assertIn("foo", [row.text for row in rows])
                    return
